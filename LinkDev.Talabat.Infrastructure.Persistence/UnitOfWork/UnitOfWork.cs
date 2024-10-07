@@ -1,8 +1,10 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts;
+﻿using LinkDev.Talabat.Core.Domain.Common;
+using LinkDev.Talabat.Core.Domain.Contracts;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using LinkDev.Talabat.Infrastructure.Persistence.Repositories;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,31 +15,38 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly StoreContext _dbContext;
-
-        private readonly Lazy<IGenericRepository<Product, int>> _productRepository;
-        private readonly Lazy<IGenericRepository<ProductBrand, int>> _brandRepository;
-        private readonly Lazy<IGenericRepository<ProductCategory, int>> _categoryRepository;
+        private readonly ConcurrentDictionary<string, object> _repositories;
 
 
         public UnitOfWork(StoreContext dbContext)
         {
             _dbContext = dbContext;
-            _productRepository  = new Lazy<IGenericRepository<Product, int>>(() => new GenericRepository<Product, int>(_dbContext));
-            _brandRepository    = new Lazy<IGenericRepository<ProductBrand, int>>(() => new GenericRepository<ProductBrand, int>(_dbContext));
-            _categoryRepository = new Lazy<IGenericRepository<ProductCategory, int>>(() => new GenericRepository<ProductCategory, int>(_dbContext));
-        }
-        public IGenericRepository<Product, int> ProductRepository => _productRepository.Value;
-        public IGenericRepository<ProductBrand, int> BrandRepository => _brandRepository.Value;
-        public IGenericRepository<ProductCategory, int> CategoryRepository => _categoryRepository.Value;
-
-        public Task<int> CompleteAysnc()
-        {
-            throw new NotImplementedException();
+            _repositories = new ();
         }
 
-        public ValueTask DisposeAsync()
+        public IGenericRepository<TEntity, TKey> getRepository<TEntity, TKey>()
+            where TEntity : BaseEntity<TKey>
+            where TKey : IEquatable<TKey>
         {
-            throw new NotImplementedException();
+            /// return new GenericRepository<TEntity, TKey>(_dbContext);
+
+            /// var typeName = typeof(TEntity).Name;   // Product
+            /// if(_repositories.ContainsKey(typeName))
+            ///     return (IGenericRepository<TEntity, TKey>)_repositories[typeName];
+            /// 
+            /// var repository = new GenericRepository<TEntity, TKey>(_dbContext);
+            /// 
+            /// _repositories.Add(typeName, repository);
+            /// 
+            /// return repository;
+
+            return (IGenericRepository<TEntity, TKey>) _repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity, TKey>(_dbContext));
+
         }
+
+        public async Task<int> CompleteAysnc() => await _dbContext.SaveChangesAsync();
+
+        public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();
+
     }
 }

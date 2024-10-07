@@ -29,7 +29,7 @@ namespace LinkDev.Talabat.APIs
 
             var app = webApplicationbuilder.Build();
 
-            #region Update Database
+            #region Update Database and Seeding
 
             using var scope = app.Services.CreateAsyncScope();
             var services = scope.ServiceProvider;
@@ -44,11 +44,13 @@ namespace LinkDev.Talabat.APIs
 
                 if (penddingMigrations.Any())
                     await dbContext.Database.MigrateAsync();      // Update-Database 
+
+                await StoreContextSeed.SeedAsync(dbContext);
             }
             catch (Exception ex)
             {
                 var logger = loggerFactory.CreateLogger<Program>();
-                logger.LogError(ex, "An error has occurred during applying the migrations.");
+                logger.LogError(ex, "An error has occurred during applying the migrations or the data seeding.");
             }
 
             /// try

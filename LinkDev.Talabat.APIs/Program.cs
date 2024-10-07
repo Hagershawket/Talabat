@@ -1,11 +1,16 @@
 
 using LinkDev.Talabat.Infrastructure.Persistence;
+using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs
 {
     public class Program
     {
-        public static void Main(string[] args)
+        //[FromServices]
+        //public static StoreContext StoreContext { get; set; } = null!;
+        public static async Task Main(string[] args)
         {
             var webApplicationbuilder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +25,50 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 
-
-
             #endregion
 
             var app = webApplicationbuilder.Build();
+
+            #region Update Database
+
+            using var scope = app.Services.CreateAsyncScope();
+            var services = scope.ServiceProvider;
+            var dbContext = services.GetRequiredService<StoreContext>();
+            //Ask Runtime Environment for an Object from "StoreContext" Service Explicitly.
+
+            var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+
+            try
+            {
+                var penddingMigrations = dbContext.Database.GetPendingMigrations();
+
+                if (penddingMigrations.Any())
+                    await dbContext.Database.MigrateAsync();      // Update-Database 
+            }
+            catch (Exception ex)
+            {
+                var logger = loggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "An error has occurred during applying the migrations.");
+            }
+
+            /// try
+            /// {
+            ///     var penddingMigrations = StoreContext.Database.GetPendingMigrations();
+            /// 
+            ///     if(penddingMigrations.Any())
+            ///         await StoreContext.Database.MigrateAsync();      // Update-Database 
+            /// }
+            /// catch(Exception ex)
+            /// {
+            /// 
+            /// }
+            /// finally
+            /// {
+            ///     await StoreContext.DisposeAsync();
+            /// } 
+            
+
+	        #endregion
 
             #region Configure Kestrel Middlewares
 

@@ -1,5 +1,7 @@
 
 using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Infrastructure.Persistence;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,8 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddSwaggerGen();
 
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
+
+            // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
             #endregion
 

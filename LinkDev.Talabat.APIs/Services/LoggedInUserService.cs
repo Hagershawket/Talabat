@@ -7,7 +7,7 @@ namespace LinkDev.Talabat.APIs.Services
     {
         private readonly IHttpContextAccessor? _httpContextAccessor;
 
-        public string UserId {  get; }
+        public string? UserId {  get; }
 
         public LoggedInUserService(IHttpContextAccessor? httpContextAccessor)
         {

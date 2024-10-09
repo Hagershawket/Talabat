@@ -32,7 +32,7 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationbuilder.Services.AddApplicationServices();
 
-            // webApplicationbuilder.Services.AddScoped(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
+            // webApplicationbuilder.Services.AddHttpContextAccessor();
             // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
             #endregion

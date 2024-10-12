@@ -4,7 +4,7 @@ using LinkDev.Talabat.Core.Domain.Contracts;
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 {
     internal static class SpecificationsEvaluator<TEntity, TKey>
-    where TEntity : BaseAuditableEntity<TKey>
+    where TEntity : BaseEntity<TKey>
     where TKey : IEquatable<TKey>
     {
         public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery, ISpecifications<TEntity, TKey> spec)

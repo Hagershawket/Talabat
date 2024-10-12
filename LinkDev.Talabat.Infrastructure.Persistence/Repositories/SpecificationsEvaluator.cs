@@ -1,6 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Domain.Common;
 using LinkDev.Talabat.Core.Domain.Contracts;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 {

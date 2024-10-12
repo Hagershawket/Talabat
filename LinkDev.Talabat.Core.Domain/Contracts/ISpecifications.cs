@@ -13,5 +13,7 @@ namespace LinkDev.Talabat.Core.Domain.Contracts
     {
         public Expression<Func<TEntity, bool>>? Criteria { get; set; } // P => P.Id = 10
         public List<Expression<Func<TEntity, object>>> Includes { get; set; }
+        public Expression<Func<TEntity, object>>? OrderBy { get; set; }
+        public Expression<Func<TEntity, object>>? OrderByDesc { get; set; }
     }
 }

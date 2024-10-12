@@ -20,6 +20,10 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
             else if(spec.OrderBy is not null)
                 query = query.OrderBy(spec.OrderBy);         // query = _dbContext.Set<Product>().OrderBy(P => P.Name)
 
+
+            if(spec.IsPaginationEnabled)
+                query = query.Skip(spec.Skip).Take(spec.Take);  // query = _dbContext.Set<Product>().OrderBy(P => P.Name).Skip(0).Take(5)
+
             // include expressions
             // 1. P => P.Brand
             // 2. P => P.Category

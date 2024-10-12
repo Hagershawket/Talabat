@@ -15,7 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LinkDev.Talabat.APIs.Controllers\LinkDev.Talabat.APIs.Controllers.csproj" />
+    <ProjectReference Include="..\LinkDev.Talabat.Core.Abstraction\LinkDev.Talabat.Core.Abstraction.csproj" />
+    <ProjectReference Include="..\LinkDev.Talabat.Core.Application\LinkDev.Talabat.Core.Application.csproj" />
     <ProjectReference Include="..\LinkDev.Talabat.Infrastructure.Persistence\LinkDev.Talabat.Infrastructure.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\products\" />
   </ItemGroup>
 
 </Project>

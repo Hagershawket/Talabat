@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Entities.Products
+namespace LinkDev.Talabat.Core.Abstraction.Products.Models
 {
-    public class ProductBrand : BaseAuditableEntity<int>
+    public class BrandDto
     {
+        public int Id { get; set; }
         public required string Name { get; set; }
     }
 }

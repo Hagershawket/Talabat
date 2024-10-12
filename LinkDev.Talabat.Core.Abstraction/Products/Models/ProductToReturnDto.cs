@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Entities.Products
+namespace LinkDev.Talabat.Core.Abstraction.Products.Models
 {
-    public class Product : BaseAuditableEntity<int>
+    public class ProductToReturnDto
     {
+        public int Id { get; set; }
         public required string Name { get; set; }
         public required string Description { get; set; }
         public string? PictureUrl { get; set; }
         public decimal Price { get; set; }
         public int? BrandId { get; set; }
-        public virtual ProductBrand? Brand { get; set; }
+        public string? Brand { get; set; }
         public int? CategoryId { get; set; }
-        public virtual ProductCategory? Category { get; set; }
+        public string? Category { get; set; }
     }
 }

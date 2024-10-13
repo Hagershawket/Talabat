@@ -36,6 +36,11 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
             return await ApplySpecifications(spec).ToListAsync();
         }
 
+        public async Task<int> GetCountAsync(ISpecifications<TEntity, TKey> spec)
+        {
+            return await ApplySpecifications(spec).CountAsync();
+        }
+
         public async Task<TEntity?> GetWithSpecAsync(ISpecifications<TEntity, TKey> spec)
         {
             return await ApplySpecifications(spec).FirstOrDefaultAsync();

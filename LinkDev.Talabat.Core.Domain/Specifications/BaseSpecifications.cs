@@ -9,20 +9,47 @@ using System.Threading.Tasks;
 namespace LinkDev.Talabat.Core.Domain.Specifications
 {
     public class BaseSpecifications<TEntity, TKey> : ISpecifications<TEntity, TKey>
-    where TEntity : BaseAuditableEntity<TKey>
+    where TEntity : BaseEntity<TKey>
     where TKey : IEquatable<TKey>
     {
         public Expression<Func<TEntity, bool>>? Criteria { get; set; } = null;
         public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();
+        public Expression<Func<TEntity, object>>? OrderBy { get; set; } = null;
+        public Expression<Func<TEntity, object>>? OrderByDesc { get; set; } = null;
+        public int Skip { get; set; }
+        public int Take { get; set; }
+        public bool IsPaginationEnabled { get; set; }
 
-        public BaseSpecifications()
+        protected BaseSpecifications(Expression<Func<TEntity, bool>> criteriaExpression)
         {
-            //Criteria = null;
+            Criteria = criteriaExpression;
         }
 
-        public BaseSpecifications(TKey id)
+        protected BaseSpecifications(TKey id)
         {
             Criteria = E => E.Id.Equals(id);
+        }
+
+        private protected virtual void AddIncludes()
+        {
+            
+        }
+
+        private protected virtual void AddOrderBy(Expression<Func<TEntity, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;   // P => P.Name
+        }
+
+        private protected virtual void AddOrderByDesc(Expression<Func<TEntity, object>> orderByExpression)
+        {
+            OrderByDesc = orderByExpression;
+        }
+
+        private protected void ApplyPagination(int skip, int take)
+        {
+            IsPaginationEnabled = true;
+            Skip = skip;
+            Take = take;
         }
     }
 }

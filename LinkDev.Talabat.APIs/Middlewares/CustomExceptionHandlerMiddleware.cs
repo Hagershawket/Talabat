@@ -29,6 +29,12 @@ namespace LinkDev.Talabat.APIs.Middlewares
                 await _next(httpContext);
 
                 // Logic Excuted with the Response
+
+                /// if(httpContext.Response.StatusCode == (int)HttpStatusCode.NotFound)
+                /// {
+                ///     var response = new ApiResponse((int)HttpStatusCode.NotFound, $"The requested endpoint:{httpContext.Request.Path} is not found.");
+                ///     await httpContext.Response.WriteAsync(response.ToString());
+                /// }
             }
             catch (Exception ex)
             {
@@ -38,7 +44,7 @@ namespace LinkDev.Talabat.APIs.Middlewares
                 {
                     case NotFoundException:
 
-                        httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         httpContext.Response.ContentType = "application/json";
                         response = new ApiResponse(404, ex.Message);
                         await httpContext.Response.WriteAsync(response.ToString());

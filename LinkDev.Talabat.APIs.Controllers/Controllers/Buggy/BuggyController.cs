@@ -10,8 +10,8 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("notfound")]  // GET: /api/Buggy/notfound
         public IActionResult GetNotFoundResponse() 
         {
-            throw new NotFoundException();
-            // return NotFound( new ApiResponse(404) );     // 404
+            // throw new NotFoundException();
+            return NotFound( new ApiResponse(404) );     // 404
         }
 
         [HttpGet("servererror")]  // GET: /api/Buggy/servererror

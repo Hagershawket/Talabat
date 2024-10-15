@@ -1,5 +1,6 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
 using LinkDev.Talabat.APIs.Controllers.Errors;
+using LinkDev.Talabat.APIs.Controllers.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
@@ -9,13 +10,28 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Buggy
         [HttpGet("notfound")]  // GET: /api/Buggy/notfound
         public IActionResult GetNotFoundResponse() 
         {
-            return NotFound( new ApiResponse(404) );     // 404
+            throw new NotFoundException();
+            // return NotFound( new ApiResponse(404) );     // 404
         }
 
         [HttpGet("servererror")]  // GET: /api/Buggy/servererror
         public IActionResult GetServerError()
         {
-            throw new Exception();  // 500
+            throw new Exception(); // 500
+
+            // Handling Exception At the level of endpoint
+            /// try
+            /// {
+            ///     throw new Exception(); // 500
+            /// }
+            /// catch (Exception ex)
+            /// {
+            ///     var response = new ApiResponse(500);
+            /// 
+            ///     Response.WriteAsync(JsonSerializer.Serialize(response));
+            /// 
+            ///     return StatusCode(500);
+            /// }
         }
 
         [HttpGet("badrequest")]  // GET: /api/Buggy/badrequest

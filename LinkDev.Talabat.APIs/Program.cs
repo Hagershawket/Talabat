@@ -1,6 +1,7 @@
 
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Infrastructure.Persistence;
@@ -76,9 +77,11 @@ namespace LinkDev.Talabat.APIs
 
             await app.InitializeStoreContextAsync();
 
-	        #endregion
+            #endregion
 
             #region Configure Kestrel Middlewares
+
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

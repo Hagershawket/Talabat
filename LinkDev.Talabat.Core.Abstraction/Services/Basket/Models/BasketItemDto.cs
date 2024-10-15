@@ -21,7 +21,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Basket.Models
         public decimal Price { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be al least one item.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be at least one item.")]
         public int Quantity { get; set; }
 
         public string? Brand { get; set; }

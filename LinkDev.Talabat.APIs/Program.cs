@@ -2,12 +2,10 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
 using LinkDev.Talabat.APIs.Middlewares;
-using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Application;
+using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -65,6 +63,8 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 
             webApplicationbuilder.Services.AddApplicationServices();
+
+            webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
 
             // webApplicationbuilder.Services.AddHttpContextAccessor();
             // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));

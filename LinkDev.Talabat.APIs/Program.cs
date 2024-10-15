@@ -66,6 +66,8 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
 
+            webApplicationbuilder.Services.AddScoped<CustomExceptionHandlerMiddleware>();
+
             // webApplicationbuilder.Services.AddHttpContextAccessor();
             // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 

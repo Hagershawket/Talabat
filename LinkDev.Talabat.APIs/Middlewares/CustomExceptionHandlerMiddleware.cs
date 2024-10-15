@@ -4,21 +4,24 @@ using System.Net;
 
 namespace LinkDev.Talabat.APIs.Middlewares
 {
-    // Convension-Based
-    public class CustomExceptionHandlerMiddleware
+    // 1. Convension-Based
+    // 2. Factory-Based
+    // 3. Request Delegate
+    public class CustomExceptionHandlerMiddleware : IMiddleware
     {
-        private readonly RequestDelegate _next;
+        //private readonly RequestDelegate _next;
         private readonly ILogger<CustomExceptionHandlerMiddleware> _logger;
         private readonly IWebHostEnvironment _env;
 
-        public CustomExceptionHandlerMiddleware(RequestDelegate next, ILogger<CustomExceptionHandlerMiddleware> logger, IWebHostEnvironment env)
+        public CustomExceptionHandlerMiddleware(/*RequestDelegate next,*/ ILogger<CustomExceptionHandlerMiddleware> logger, IWebHostEnvironment env)
         {
-            _next = next;
+            //_next = next;
             _logger = logger;
             _env = env;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+
+        public async Task InvokeAsync(HttpContext httpContext, RequestDelegate _next)
         {
             try
             {
@@ -38,7 +41,7 @@ namespace LinkDev.Talabat.APIs.Middlewares
             {
                 ApiResponse response;
 
-                switch (ex) 
+                switch (ex)
                 {
                     case NotFoundException:
 
@@ -72,7 +75,6 @@ namespace LinkDev.Talabat.APIs.Middlewares
                         break;
                 }
             }
-
         }
     }
 }

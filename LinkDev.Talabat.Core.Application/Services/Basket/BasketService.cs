@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket.Models;
-using LinkDev.Talabat.Core.Abstraction.Exceptions;
+using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using LinkDev.Talabat.Core.Domain.Infrastructure;
 using Microsoft.Extensions.Configuration;

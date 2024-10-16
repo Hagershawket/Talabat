@@ -29,8 +29,11 @@ namespace LinkDev.Talabat.APIs
                                               options.InvalidModelStateResponseFactory = (actionContext) =>
                                               {
                                                   var errors = actionContext.ModelState.Where(P => P.Value!.Errors.Count > 0)
-                                                                                       .SelectMany(P => P.Value!.Errors)
-                                                                                       .Select(P => P.ErrorMessage);
+                                                                                       .Select(P => new ApiValidationErrorResponse.ValidationError
+                                                                                       { 
+                                                                                           Field  = P.Key,
+                                                                                           Errors = P.Value!.Errors.Select(E => E.ErrorMessage)
+                                                                                       });
 
                                                   return new BadRequestObjectResult(new ApiValidationErrorResponse()
                                                   {
@@ -66,7 +69,7 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
 
-            webApplicationbuilder.Services.AddScoped<CustomExceptionHandlerMiddleware>();
+            webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
             // webApplicationbuilder.Services.AddHttpContextAccessor();
             // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
@@ -83,7 +86,7 @@ namespace LinkDev.Talabat.APIs
 
             #region Configure Kestrel Middlewares
 
-            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

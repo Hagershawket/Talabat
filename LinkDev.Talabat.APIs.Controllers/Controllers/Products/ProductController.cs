@@ -1,7 +1,7 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
 using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Common;
-using LinkDev.Talabat.Core.Abstraction.Products.Models;
+using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products

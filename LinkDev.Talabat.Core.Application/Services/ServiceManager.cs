@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Abstraction;
-using LinkDev.Talabat.Core.Abstraction.Products;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket;
+using LinkDev.Talabat.Core.Abstraction.Services.Products;
 using LinkDev.Talabat.Core.Application.Services.Products;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using Microsoft.Extensions.Configuration;

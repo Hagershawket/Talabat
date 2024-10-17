@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Abstraction.Common;
-using LinkDev.Talabat.Core.Abstraction.Products;
-using LinkDev.Talabat.Core.Abstraction.Products.Models;
+using LinkDev.Talabat.Core.Abstraction.Services.Products;
+using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
 using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;

@@ -1,12 +1,12 @@
 ﻿using LinkDev.Talabat.Core.Abstraction.Common;
-using LinkDev.Talabat.Core.Abstraction.Products.Models;
+using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Abstraction.Products
+namespace LinkDev.Talabat.Core.Abstraction.Services.Products
 {
     public interface IProductService
     {

@@ -1,11 +1,11 @@
 
+using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
-using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.Core.Application;
+using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -22,7 +22,42 @@ namespace LinkDev.Talabat.APIs
             // Add services to the container.
 
             webApplicationbuilder.Services.AddControllers()
-                .AddApplicationPart(typeof(Controllers.AssemblyInformation).Assembly);
+                                          .AddApplicationPart(typeof(Controllers.AssemblyInformation).Assembly)
+                                          .ConfigureApiBehaviorOptions((options) =>
+                                          {
+                                              options.SuppressModelStateInvalidFilter = false;
+                                              options.InvalidModelStateResponseFactory = (actionContext) =>
+                                              {
+                                                  var errors = actionContext.ModelState.Where(P => P.Value!.Errors.Count > 0)
+                                                                                       .Select(P => new ApiValidationErrorResponse.ValidationError
+                                                                                       { 
+                                                                                           Field  = P.Key,
+                                                                                           Errors = P.Value!.Errors.Select(E => E.ErrorMessage)
+                                                                                       });
+
+                                                  return new BadRequestObjectResult(new ApiValidationErrorResponse()
+                                                  {
+                                                      Errors = errors
+                                                  });
+                                              };
+                                          });
+
+            // Another Way to configure "InvalidModelStateResponseFactory"
+            /// webApplicationbuilder.Services.Configure<ApiBehaviorOptions>((options) =>
+            /// {
+            ///     options.SuppressModelStateInvalidFilter = false;
+            ///     options.InvalidModelStateResponseFactory = (actionContext) =>
+            ///     {
+            ///         var errors = actionContext.ModelState.Where(P => P.Value!.Errors.Count > 0)
+            ///                                              .SelectMany(P => P.Value!.Errors)
+            ///                                              .Select(P => P.ErrorMessage);
+            /// 
+            ///         return new BadRequestObjectResult(new ApiValidationErrorResponse()
+            ///         {
+            ///             Errors = errors
+            ///         });
+            ///     };
+            /// });
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationbuilder.Services.AddEndpointsApiExplorer();
@@ -31,6 +66,10 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 
             webApplicationbuilder.Services.AddApplicationServices();
+
+            webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
+
+            webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
             // webApplicationbuilder.Services.AddHttpContextAccessor();
             // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
@@ -43,9 +82,11 @@ namespace LinkDev.Talabat.APIs
 
             await app.InitializeStoreContextAsync();
 
-	        #endregion
+            #endregion
 
             #region Configure Kestrel Middlewares
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -56,7 +97,12 @@ namespace LinkDev.Talabat.APIs
 
             app.UseHttpsRedirection();
 
+            app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+
             app.UseStaticFiles();
+
+            app.UseAuthentication()
+               .UseAuthorization();
 
             app.MapControllers(); 
 

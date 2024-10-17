@@ -1,4 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Abstraction.Products;
+using LinkDev.Talabat.Core.Abstraction.Services.Basket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace LinkDev.Talabat.Core.Abstraction
     public interface IServiceManager
     {
         public IProductService ProductService { get; }
+        public IBasketService BasketService { get; }
     }
 }

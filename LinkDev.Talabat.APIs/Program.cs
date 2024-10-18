@@ -2,13 +2,11 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
 using LinkDev.Talabat.APIs.Middlewares;
-using LinkDev.Talabat.Core.Abstraction.Services.Auth.Models;
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Application;
-using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence._Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs
@@ -75,8 +73,8 @@ namespace LinkDev.Talabat.APIs
 
             webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
-            // webApplicationbuilder.Services.AddHttpContextAccessor();
-            // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
+            webApplicationbuilder.Services.AddHttpContextAccessor();
+            webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
             #endregion
 

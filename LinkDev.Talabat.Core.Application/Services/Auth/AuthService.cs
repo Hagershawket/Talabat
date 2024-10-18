@@ -17,20 +17,20 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
-    internal class AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthService
+    public class AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<JwtSettings> jwtSettings) : IAuthService
     {
         private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
         public async Task<UserDto> LoginAsync(LoginDto model)
         {      
             var user = await userManager.FindByEmailAsync(model.Email);
-            if (user is not null)
-                throw new BadRequestException("Invalid Login");
+            if (user is null)
+                throw new UnAuthorizedException("Invalid Login");
 
             var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
 
             if(!result.Succeeded)
-                throw new BadRequestException("Invalid Login");
+                throw new UnAuthorizedException("Invalid Login");
 
             var response = new UserDto()
             { 

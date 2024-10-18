@@ -2,6 +2,7 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
 using LinkDev.Talabat.APIs.Middlewares;
+using LinkDev.Talabat.Core.Abstraction.Services.Auth.Models;
 using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure;
@@ -70,31 +71,7 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
             webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
 
-            webApplicationbuilder.Services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
-            {
-                identityOptions.SignIn.RequireConfirmedAccount = true;
-                identityOptions.SignIn.RequireConfirmedEmail = true;
-                identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
-
-                // identityOptions.Password.RequireNonAlphanumeric = true;  // $#@%
-                // identityOptions.Password.RequiredUniqueChars = 2;
-                // identityOptions.Password.RequiredLength = 6;
-                // identityOptions.Password.RequireDigit = true;
-                // identityOptions.Password.RequireLowercase = true;
-                // identityOptions.Password.RequireUppercase = true;
-
-                identityOptions.User.RequireUniqueEmail = true;
-                //identityOptions.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz1234567890-_@#$";
-
-                identityOptions.Lockout.AllowedForNewUsers = true;
-                identityOptions.Lockout.MaxFailedAccessAttempts = 5;
-                identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(12);
-
-                //identityOptions.Stores
-                //identityOptions.Tokens
-                //identityOptions.ClaimsIdentity
-            })
-            .AddEntityFrameworkStores<StoreIdentityDbContext>();
+            webApplicationbuilder.Services.AddIdentityServices(webApplicationbuilder.Configuration);
 
             webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 

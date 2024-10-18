@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LinkDev.Talabat.Core.Abstraction\LinkDev.Talabat.Core.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

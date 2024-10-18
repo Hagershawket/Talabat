@@ -20,16 +20,16 @@ namespace LinkDev.Talabat.APIs.Extensions
 
             services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
             {
-                identityOptions.SignIn.RequireConfirmedAccount = true;
-                identityOptions.SignIn.RequireConfirmedEmail = true;
-                identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
+                // identityOptions.SignIn.RequireConfirmedAccount = true;
+                // identityOptions.SignIn.RequireConfirmedEmail = true;
+                // identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
-                identityOptions.Password.RequireNonAlphanumeric = true;  // $#@%
-                identityOptions.Password.RequiredUniqueChars = 2;
-                identityOptions.Password.RequiredLength = 6;
-                identityOptions.Password.RequireDigit = true;
-                identityOptions.Password.RequireLowercase = true;
-                identityOptions.Password.RequireUppercase = true;
+                // identityOptions.Password.RequireNonAlphanumeric = true;  // $#@%
+                // identityOptions.Password.RequiredUniqueChars = 2;
+                // identityOptions.Password.RequiredLength = 6;
+                // identityOptions.Password.RequireDigit = true;
+                // identityOptions.Password.RequireLowercase = true;
+                // identityOptions.Password.RequireUppercase = true;
 
                 identityOptions.User.RequireUniqueEmail = true;
                 //identityOptions.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz1234567890-_@#$";

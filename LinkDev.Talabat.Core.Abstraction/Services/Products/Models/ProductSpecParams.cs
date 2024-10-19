@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Abstraction.Products.Models
+namespace LinkDev.Talabat.Core.Abstraction.Services.Products.Models
 {
     public class ProductSpecParams
     {

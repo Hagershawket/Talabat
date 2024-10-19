@@ -2,6 +2,8 @@
 using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
 using LinkDev.Talabat.APIs.Middlewares;
+using LinkDev.Talabat.APIs.Services;
+using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
@@ -63,16 +65,16 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddEndpointsApiExplorer();
             webApplicationbuilder.Services.AddSwaggerGen();
 
-            webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
-
             webApplicationbuilder.Services.AddApplicationServices();
-
+            webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
             webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
+
+            webApplicationbuilder.Services.AddIdentityServices(webApplicationbuilder.Configuration);
 
             webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
-            // webApplicationbuilder.Services.AddHttpContextAccessor();
-            // webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
+            webApplicationbuilder.Services.AddHttpContextAccessor();
+            webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
             #endregion
 
@@ -80,7 +82,7 @@ namespace LinkDev.Talabat.APIs
 
             #region Databases Initialization
 
-            await app.InitializeStoreContextAsync();
+            await app.InitializeDbAsync();
 
             #endregion
 

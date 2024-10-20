@@ -1,4 +1,4 @@
-using LinkDev.Talabat.Dashboard.Models;
+using LinkDev.Talabat.Dashboard.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

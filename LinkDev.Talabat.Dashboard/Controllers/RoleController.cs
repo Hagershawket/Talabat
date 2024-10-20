@@ -87,6 +87,28 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
         #endregion
 
+        #region Delete
 
+        [HttpPost]  // POST
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string? id)
+        {
+            if (id is null)
+                return BadRequest();
+
+            var role = await _roleManager.FindByIdAsync(id);
+            if (role is null)
+            {
+                ModelState.AddModelError("Name", "This Role is already exist");
+                return View("Index", await _roleManager.Roles.ToListAsync());
+            }
+
+            await _roleManager.DeleteAsync(role);
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        #endregion
     }
 }

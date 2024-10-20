@@ -1,0 +1,47 @@
+﻿@model UpdatedUserViewModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Users</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
+        <li class="breadcrumb-item active">Edit</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="post" asp-action="Edit" class="mt-4">
+                <div class="form-group">
+                    <label asp-for="UserName" class="col-form-label"></label>
+                    <input asp-for="UserName" class="form-control" disabled />
+                </div>
+
+                <hr/>
+                <h3>Manage User Roles</h3>
+                <hr/>
+
+                @for (int i = 0; i < Model.Roles.Count; i++)
+                {
+                    <div>
+                        <input asp-for="@Model.Roles[i].Id" hidden />
+                        <input asp-for="@Model.Roles[i].Name" hidden />
+                        <input asp-for="@Model.Roles[i].IsSelected" class="form-check-input" />
+                        <label asp-for="@Model.Roles[i].Name" class="form-check-label">@Model.Roles[i].Name</label>
+                        <span asp-validation-for="Roles" class="text-danger"></span>
+                    </div>
+                }
+
+                <div class="input-group mt-2 justify-content-center">
+                    <button type="submit" class="btn btn-success m-2">Edit</button>
+                    <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

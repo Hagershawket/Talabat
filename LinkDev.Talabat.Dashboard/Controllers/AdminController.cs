@@ -47,5 +47,15 @@ namespace LinkDev.Talabat.Dashboard.Controllers
             return View(model);
         }
         #endregion
+
+        #region Logout
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+
+        #endregion
     }
 }

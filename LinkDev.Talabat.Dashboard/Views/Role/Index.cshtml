@@ -1,0 +1,40 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+	ViewData["Title"] = "Roles";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Roles</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Roles</a></li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <div class="card mb-4">           
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(R => R.Id)</th>
+                        <th>@Html.DisplayNameFor(R => R.Name)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var role in Model)
+                    {
+                        <tr>
+                            <td>@role.Id</td>
+                            <td>@role.Name</td>
+                            <td>
+                                <a class="btn btn-outline-warning"><i class="fas fa-edit"></i> Edit</a>
+                                <a class="btn btn-outline-danger"><i class="fas fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

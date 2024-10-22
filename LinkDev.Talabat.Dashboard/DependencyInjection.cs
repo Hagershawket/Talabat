@@ -1,4 +1,7 @@
-﻿using LinkDev.Talabat.Infrastructure.Persistence._Identity;
+﻿using LinkDev.Talabat.Core.Abstraction.Services.Auth;
+using LinkDev.Talabat.Core.Application.Services.Auth;
+using LinkDev.Talabat.Dashboard.Mapping;
+using LinkDev.Talabat.Infrastructure.Persistence._Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +28,18 @@ namespace LinkDev.Talabat.Dashboard
                              .UseSqlServer(configuration.GetConnectionString("IdentityContext"));
             });
 
+            return services;
+        }
+
+        public static IServiceCollection AddDashboardServices(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(MvcMappingProfile).Assembly);
+            services.AddScoped(typeof(IAuthService), typeof(AuthService));
+
+            services.AddScoped(typeof(Func<IAuthService>), (serviceProvider) =>
+            {
+                return () => serviceProvider.GetRequiredService<IAuthService>();
+            });
             return services;
         }
     }

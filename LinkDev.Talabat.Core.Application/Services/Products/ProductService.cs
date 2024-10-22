@@ -20,9 +20,13 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        #region Product
+
+        #region Get
         public async Task<Pagination<ProductToReturnDto>> GetProductsAsync(ProductSpecParams specParams)
         {
-            var specs = new ProductWithBrandAndCategorySpecifications(specParams.Sort, specParams.BrandId, specParams.CategoryId, specParams.PageSize, specParams.PageIndex, specParams.Search );
+            var specs = new ProductWithBrandAndCategorySpecifications(specParams.Sort, specParams.BrandId, specParams.CategoryId, specParams.PageSize, specParams.PageIndex, specParams.Search);
             var products = await _unitOfWork.getRepository<Product, int>().GetAllWithSpecAsync(specs);
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
 
@@ -31,6 +35,14 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
             return new Pagination<ProductToReturnDto>(specParams.PageIndex, specParams.PageSize, count) { Data = mappedProducts };
         }
+
+        public async Task<IEnumerable<ProductToReturnDto>> GetProductsWithoutSpecAsync()
+        {
+            var products = await _unitOfWork.getRepository<Product, int>().GetAllAsync();
+            var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
+            return mappedProducts;
+        }
+
         public async Task<ProductToReturnDto> GetProductAsync(int id)
         {
             var specs = new ProductWithBrandAndCategorySpecifications(id);
@@ -39,7 +51,10 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
                 throw new NotFoundException(nameof(product), id);
             var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
             return mappedProduct;
-        }
+        }  
+        #endregion
+
+        #endregion
 
         public async Task<IEnumerable<BrandDto>> GetBrandsAsync()
             => _mapper.Map<IEnumerable<BrandDto>>(await _unitOfWork.getRepository<ProductBrand, int>().GetAllAsync());

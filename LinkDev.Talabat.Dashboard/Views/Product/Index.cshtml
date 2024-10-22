@@ -1,0 +1,57 @@
+﻿@model IReadOnlyList<ProductViewModel>
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Products</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Products</a></li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>
+                                <img class="w-25" src="@(string.IsNullOrEmpty(@product.PictureUrl) ? "/images/no-photo.jpg" : $"{product.PictureUrl}")" 
+                                     alt="@product.Name" 
+                                     title="@product.Name" />
+                            </td>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Price</td>
+                            <td>@product.Brand</td>
+                            <td>@product.Category</td>
+                            <td>
+                                <a class="btn mb-2 text-warning"><i class="fas fa-pen"></i> </a>
+                                <a class="btn text-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

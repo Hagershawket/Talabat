@@ -11,6 +11,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Products
     public interface IProductService
     {
         Task<Pagination<ProductToReturnDto>> GetProductsAsync(ProductSpecParams specParams);
+        Task<IEnumerable<ProductToReturnDto>> GetProductsWithoutSpecAsync();
         Task<ProductToReturnDto> GetProductAsync(int id);
         Task<IEnumerable<BrandDto>> GetBrandsAsync();
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();

@@ -1,4 +1,7 @@
+using LinkDev.Talabat.Core.Application;
 using LinkDev.Talabat.Dashboard.Extensions;
+using LinkDev.Talabat.Infrastructure;
+using LinkDev.Talabat.Infrastructure.Persistence;
 
 namespace LinkDev.Talabat.Dashboard
 {
@@ -17,6 +20,10 @@ namespace LinkDev.Talabat.Dashboard
                             .AddIdentityDb(builder.Configuration);
 
             builder.Services.AddIdentityServices();
+            builder.Services.AddDashboardServices();
+            builder.Services.AddApplicationServices();
+            builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddInfrastructureService(builder.Configuration);
 
             #endregion
 

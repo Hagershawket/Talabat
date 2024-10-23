@@ -68,7 +68,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
             await _unitOfWork.getRepository<Product, int>().AddAsync(product);
 
-            return await _unitOfWork.CompleteAysnc();
+            return await _unitOfWork.CompleteAsync();
         }
 
         #endregion
@@ -87,7 +87,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
             _unitOfWork.getRepository<Product, int>().Update(product);
 
-            return await _unitOfWork.CompleteAysnc();
+            return await _unitOfWork.CompleteAsync();
         }
 
         #endregion
@@ -105,7 +105,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
                 productRepo.Delete(product);
             }
                 
-            return await _unitOfWork.CompleteAysnc() > 0;
+            return await _unitOfWork.CompleteAsync() > 0;
         }
 
         #endregion

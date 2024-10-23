@@ -44,7 +44,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 
         }
 
-        public async Task<int> CompleteAysnc() => await _dbContext.SaveChangesAsync();
+        public async Task<int> CompleteAsync() => await _dbContext.SaveChangesAsync();
 
         public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();
 

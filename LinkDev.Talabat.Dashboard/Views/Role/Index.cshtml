@@ -30,12 +30,7 @@
                         <tr>
                             <td>@role.Id</td>
                             <td>@role.Name</td>
-                            <td>
-                                <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@role.Id"><i class="fas fa-edit"></i> Edit</a>
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@role.Id">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                            </td>
+                            <partial name="_ButtonsPartial" model="@role.Id" />
                         </tr>
 
                         <!-- Modal -->

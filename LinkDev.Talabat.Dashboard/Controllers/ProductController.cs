@@ -85,5 +85,29 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
         #endregion
 
+        #region Delete
+
+        [HttpPost]  // POST
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id is null)
+                return BadRequest();
+
+            var product = await _serviceManager.ProductService.GetProductAsync(id.Value);
+
+            if(product is null)
+                return NotFound($"The Product with Id {id} is not found");
+
+            var deleted = await _serviceManager.ProductService.DeleteProductAsync(id.Value);
+
+            if (deleted)
+                return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        #endregion
+
     }
 }

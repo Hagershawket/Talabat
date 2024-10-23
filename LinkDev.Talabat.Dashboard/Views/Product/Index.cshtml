@@ -44,11 +44,29 @@
                             <td>@product.Price</td>
                             <td>@product.Brand</td>
                             <td>@product.Category</td>
-                            <td>
-                                <a class="btn mb-2 text-warning" asp-action="Edit" asp-route-id="@product.Id"><i class="fas fa-pen"></i> </a>
-                                <a class="btn text-danger"><i class="fas fa-trash"></i></a>
-                            </td>
+                            <partial name="_ButtonsPartial" model="@product.Id" />
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-@product.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="deleteModal-@product.Id">Delete Product</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you would like to do this?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-action="Delete" asp-route-id="@product.Id" method="post">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
                 </tbody>
             </table>

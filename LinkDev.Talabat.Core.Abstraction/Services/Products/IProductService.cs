@@ -15,6 +15,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Products
         Task<ProductToReturnDto> GetProductAsync(int id);
         Task<int> CreateProductAsync(CreatedProductDto model);
         Task<int> UpdateProductAsync(UpdatedProductDto model);
+        Task<bool> DeleteProductAsync(int id);
         Task<IEnumerable<BrandDto>> GetBrandsAsync();
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
 

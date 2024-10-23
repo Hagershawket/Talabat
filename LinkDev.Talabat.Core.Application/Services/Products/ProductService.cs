@@ -88,7 +88,21 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
             _unitOfWork.getRepository<Product, int>().Update(product);
 
             return await _unitOfWork.CompleteAysnc();
-        } 
+        }
+
+        #endregion
+
+        #region Delete
+
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            var productRepo = _unitOfWork.getRepository<Product,int>();
+            var product = await productRepo.GetAsync(id);
+
+            if (product is { })
+                productRepo.Delete(product);
+            return await _unitOfWork.CompleteAysnc() > 0;
+        }
 
         #endregion
 

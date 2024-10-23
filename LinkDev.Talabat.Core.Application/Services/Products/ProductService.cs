@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Common;
 using LinkDev.Talabat.Core.Abstraction.Services.Products;
 using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
@@ -14,11 +15,13 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAttachmentService _attachmentService;
 
-        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper, IAttachmentService attachmentService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _attachmentService = attachmentService;
         }
 
         #region Product
@@ -51,7 +54,23 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
                 throw new NotFoundException(nameof(product), id);
             var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
             return mappedProduct;
-        }  
+        }
+        #endregion
+
+        #region Create
+
+        public async Task<int> CreateProductAsync(CreatedProductDto model)
+        {
+            var product = _mapper.Map<Product>(model);
+
+            if (model.Image is not null)
+                product.PictureUrl = await _attachmentService.UploadFileAsync(model.Image, "products");
+
+            await _unitOfWork.getRepository<Product, int>().AddAsync(product);
+
+            return await _unitOfWork.CompleteAysnc();
+        }
+
         #endregion
 
         #endregion

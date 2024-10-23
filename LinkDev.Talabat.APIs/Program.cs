@@ -64,7 +64,7 @@ namespace LinkDev.Talabat.APIs
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             webApplicationbuilder.Services.AddEndpointsApiExplorer();
             webApplicationbuilder.Services.AddSwaggerGen();
-
+            webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
             webApplicationbuilder.Services.AddApplicationServices();
             webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
             webApplicationbuilder.Services.AddInfrastructureService(webApplicationbuilder.Configuration);
@@ -74,7 +74,6 @@ namespace LinkDev.Talabat.APIs
             webApplicationbuilder.Services.AddScoped<ExceptionHandlerMiddleware>();
 
             webApplicationbuilder.Services.AddHttpContextAccessor();
-            webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
 
             #endregion
 

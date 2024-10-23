@@ -11,6 +11,7 @@ namespace LinkDev.Talabat.Dashboard.Mapping
             #region Product
 
             CreateMap<ProductToReturnDto, ProductViewModel>();
+            CreateMap<ProductViewModel, CreatedProductDto>();
 
             #endregion
 

@@ -13,16 +13,18 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors
             _loggedInUserService = loggedInUserService;
         }
 
-        public override int SavedChanges(SaveChangesCompletedEventData eventData, int result)
+        public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {
             UpdateEntities(eventData.Context);
-            return base.SavedChanges(eventData, result);
+            return base.SavingChanges(eventData, result);
         }
-        public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
+
+        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
             UpdateEntities(eventData.Context);
-            return base.SavedChangesAsync(eventData, result, cancellationToken);
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
+
 
         private void UpdateEntities(DbContext? dbContext)
         {
@@ -34,11 +36,11 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors
                 
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreatedBy = _loggedInUserService.UserId!;
+                    entry.Entity.CreatedBy = _loggedInUserService.UserId! ?? "System";
                     entry.Entity.CreatedOn = DateTime.UtcNow;
                 }
 
-                entry.Entity.LastModifiedBy = _loggedInUserService.UserId!;
+                entry.Entity.LastModifiedBy = _loggedInUserService.UserId! ?? "System";
                 entry.Entity.LastModifiedOn = DateTime.UtcNow;
             }
         }

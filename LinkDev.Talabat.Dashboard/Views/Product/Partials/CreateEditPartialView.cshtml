@@ -1,0 +1,65 @@
+﻿@model ProductViewModel
+@inject IServiceManager serviceManager
+@{
+    var Brands = new SelectList(await serviceManager.ProductService.GetBrandsAsync(), nameof(ProductViewModel.Id), nameof(ProductViewModel.Name));
+    var Categories = new SelectList(await serviceManager.ProductService.GetCategoriesAsync(), nameof(ProductViewModel.Id), nameof(ProductViewModel.Name));
+}
+
+<div class="mb-4">
+    <fieldset class="border p-3">
+        <legend class="w-auto">Product Details</legend>
+        <div class="form-group">
+            <label asp-for="Name" class="col-form-label"></label>
+            <span class="text-danger">*</span>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="col-form-label"></label>
+            <span class="text-danger">*</span>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="col-form-label"></label>
+            <span class="text-danger">*</span>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label asp-for="BrandId" class="col-form-label"></label>
+                <select asp-for="BrandId" asp-items="@Brands" class="form-control">
+                    <option value="@null">Select Brand...</option>
+                </select>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="CategoryId" class="col-form-label"></label>
+                <select asp-for="CategoryId" asp-items="@Categories" class="form-control">
+                    <option value="@null">Select Category...</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="mb-4">
+    <fieldset class="border p-3">
+        <legend class="w-auto">Product Picture</legend>
+        <div class="form-group">
+            <label asp-for="Image" class="col-form-label"></label>
+            <input asp-for="Image" class="form-control" />
+        </div>
+    </fieldset>
+</div>
+<div class="mb-4">
+    <fieldset class="border p-3">
+        <div class="row">
+            <div class="form-group col-6">
+                <label asp-for="CreatedOn" class="col-form-label"></label>
+            </div>
+            <div class="form-group col-6">
+                <label asp-for="LastModifiedOn" class="col-form-label"></label>
+            </div>
+        </div>
+    </fieldset>
+</div>

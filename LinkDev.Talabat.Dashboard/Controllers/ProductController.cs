@@ -21,7 +21,32 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
         #endregion
 
-        
+        #region Create
+
+        [HttpGet] // GET: /Product/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost] // POST
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var mappedProduct = _mapper.Map<CreatedProductDto>(model);
+
+            var created = await _serviceManager.ProductService.CreateProductAsync(mappedProduct) > 0;
+
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        #endregion
+
+
 
     }
 }

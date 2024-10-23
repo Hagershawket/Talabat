@@ -119,6 +119,9 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
         public async Task<IEnumerable<BrandDto>> GetBrandsAsync()
             => _mapper.Map<IEnumerable<BrandDto>>(await _unitOfWork.getRepository<ProductBrand, int>().GetAllAsync());
 
+        public async Task<BrandDto> GetBrandAsync(int id)
+           => _mapper.Map <BrandDto> (await _unitOfWork.getRepository<ProductBrand, int>().GetAsync(id));
+
         #endregion
 
         #region Create
@@ -130,6 +133,20 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
             await _unitOfWork.getRepository<ProductBrand, int>().AddAsync(brand);
 
             return await _unitOfWork.CompleteAsync();
+        }
+
+        #endregion
+
+        #region Delete
+        public async Task<bool> DeleteBrandAsync(int id)
+        {
+            var brandRepo = _unitOfWork.getRepository<ProductBrand, int>();
+            var brand = await brandRepo.GetAsync(id);
+
+            if (brand is not null)
+                brandRepo.Delete(brand);
+
+            return await _unitOfWork.CompleteAsync() > 0;
         }
 
         #endregion

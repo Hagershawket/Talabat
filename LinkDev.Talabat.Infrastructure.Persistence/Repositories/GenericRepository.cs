@@ -28,7 +28,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
             if(typeof(TEntity) == typeof(Product))
                 return await _dbContext.Set<Product>().Where(P => P.Id.Equals(id)).Include(P => P.Brand).Include(P => P.Category).FirstOrDefaultAsync() as TEntity;
 
-            return await _dbContext.Set<TEntity>().FindAsync();
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllWithSpecAsync(ISpecifications<TEntity, TKey> spec, bool withTracking = false)

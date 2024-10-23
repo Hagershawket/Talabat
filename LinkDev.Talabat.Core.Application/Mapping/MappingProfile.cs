@@ -25,6 +25,9 @@ namespace LinkDev.Talabat.Core.Application.Mapping
             CreateMap<CreatedProductDto, Product>()
                 .ForMember(D => D.NormalizedName, opt => opt.MapFrom(src => src.Name.ToUpper()));
 
+            CreateMap<UpdatedProductDto, Product>()
+                .ForMember(D => D.NormalizedName, opt => opt.MapFrom(src => src.Name.ToUpper()));
+
             #endregion
 
             #region Brand

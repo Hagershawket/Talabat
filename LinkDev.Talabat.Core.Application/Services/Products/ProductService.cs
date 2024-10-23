@@ -73,6 +73,25 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
         #endregion
 
+        #region Update
+
+        public async Task<int> UpdateProductAsync(UpdatedProductDto model)
+        {
+            var product = _mapper.Map<Product>(model);
+
+            if (model.Image is not null)
+            {
+                _attachmentService.DeleteAttachment(model.PictureUrl!);
+                product.PictureUrl = await _attachmentService.UploadFileAsync(model.Image, "products");
+            }
+
+            _unitOfWork.getRepository<Product, int>().Update(product);
+
+            return await _unitOfWork.CompleteAysnc();
+        } 
+
+        #endregion
+
         #endregion
 
         public async Task<IEnumerable<BrandDto>> GetBrandsAsync()

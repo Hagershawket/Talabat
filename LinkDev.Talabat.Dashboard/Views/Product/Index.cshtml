@@ -45,7 +45,7 @@
                             <td>@product.Brand</td>
                             <td>@product.Category</td>
                             <td>
-                                <a class="btn mb-2 text-warning"><i class="fas fa-pen"></i> </a>
+                                <a class="btn mb-2 text-warning" asp-action="Edit" asp-route-id="@product.Id"><i class="fas fa-pen"></i> </a>
                                 <a class="btn text-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>

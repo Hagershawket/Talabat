@@ -46,7 +46,44 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
         #endregion
 
+        #region Update
 
+        [HttpGet]   // GET: /Product/Edit/id?
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id is null)
+                return BadRequest();
+
+            var product = await _serviceManager.ProductService.GetProductAsync(id.Value);
+
+            if (product is null)
+                return NotFound($"The Product with Id {id} is not found");
+
+            var productVM = _mapper.Map<ProductViewModel>(product);
+
+            return View(productVM);
+        }
+
+        [HttpPost]   // POST
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit([FromRoute] int id, ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var product = _mapper.Map<UpdatedProductDto>(model);
+
+            product.Id = id;
+
+            var updated = await _serviceManager.ProductService.UpdateProductAsync(product) > 0;
+
+            if (updated)
+               return RedirectToAction(nameof(Index));
+
+            return View(model);
+        }
+
+        #endregion
 
     }
 }

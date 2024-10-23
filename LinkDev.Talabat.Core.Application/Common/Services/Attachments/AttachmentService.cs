@@ -41,11 +41,12 @@ namespace LinkDev.Talabat.Core.Application.Common.Services.Attachments
 
         #region Delete Attachment
 
-        public bool DeleteAttachment(string filePath)
+        public bool DeleteFile(string filePath)
         {
-            if (File.Exists(filePath))
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", filePath);
+            if (File.Exists(path))
             {
-                File.Delete(filePath);
+                File.Delete(path);
                 return true;
             }
             return false;

@@ -81,7 +81,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
             if (model.Image is not null)
             {
-                _attachmentService.DeleteAttachment(model.PictureUrl!);
+                _attachmentService.DeleteFile(model.PictureUrl!);
                 product.PictureUrl = await _attachmentService.UploadFileAsync(model.Image, "products");
             }
 
@@ -99,8 +99,12 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
             var productRepo = _unitOfWork.getRepository<Product,int>();
             var product = await productRepo.GetAsync(id);
 
-            if (product is { })
+            if (product is not null && product.PictureUrl is not null)
+            {
+                _attachmentService.DeleteFile(product.PictureUrl);
                 productRepo.Delete(product);
+            }
+                
             return await _unitOfWork.CompleteAysnc() > 0;
         }
 

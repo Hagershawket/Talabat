@@ -10,6 +10,6 @@ namespace LinkDev.Talabat.Core.Abstraction
     public interface IAttachmentService
     {
         Task<string?> UploadFileAsync(IFormFile file, string folderName);
-        bool DeleteAttachment(string filePath);
+        bool DeleteFile(string filePath);
     }
 }

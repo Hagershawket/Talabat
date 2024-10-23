@@ -1,10 +1,12 @@
 ﻿using LinkDev.Talabat.Dashboard.ViewModels.Role;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
+    [Authorize]
     public class RoleController(RoleManager<IdentityRole> _roleManager) : Controller
     {
         #region Index

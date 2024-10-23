@@ -2,6 +2,7 @@
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
@@ -35,7 +36,18 @@ namespace LinkDev.Talabat.Dashboard.Controllers
                     if (result.IsLockedOut)
                         ModelState.AddModelError(string.Empty, "Your Account is locked!!");
                     if (result.Succeeded && await _userManager.IsInRoleAsync(user, "Admin"))
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.PrimarySid, user.Id),
+                            new Claim(ClaimTypes.Name, user.UserName!),
+                            new Claim(ClaimTypes.Email, user.Email!),
+                        };
+
+                        await _signInManager.SignInWithClaimsAsync(user, true, claims);
+
                         return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
 
                 }
                 else

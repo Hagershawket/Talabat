@@ -3,10 +3,12 @@ using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Dashboard.ViewModels.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
+    [Authorize]
     public class ProductController(IServiceManager _serviceManager, IMapper _mapper) : Controller
     {
         #region Index

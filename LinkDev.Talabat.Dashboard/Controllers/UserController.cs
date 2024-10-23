@@ -1,6 +1,7 @@
 ﻿using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Dashboard.ViewModels.Role;
 using LinkDev.Talabat.Dashboard.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using System.Data;
 
 namespace LinkDev.Talabat.Dashboard.Controllers
 {
+    [Authorize]
     public class UserController(UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole> _roleManager) : Controller
     {
         #region Index

@@ -20,6 +20,14 @@ namespace LinkDev.Talabat.Dashboard.Extensions
             })
             .AddEntityFrameworkStores<StoreIdentityDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Admin/Login";
+                options.LogoutPath = "/Admin/Logout";
+                options.AccessDeniedPath = "/Home/Error";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            });
+
             return services;
         }
     }

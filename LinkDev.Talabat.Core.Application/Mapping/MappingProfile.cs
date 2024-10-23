@@ -33,6 +33,7 @@ namespace LinkDev.Talabat.Core.Application.Mapping
             #region Brand
 
             CreateMap<ProductBrand, BrandDto>();
+            CreateMap<CreatedBrandDto, ProductBrand>();
 
             #endregion
 

@@ -20,6 +20,7 @@ namespace LinkDev.Talabat.Dashboard.Mapping
             #region Brand
 
             CreateMap<BrandDto, BrandViewModel>();
+            CreateMap<BrandViewModel, CreatedBrandDto>();
 
             #endregion
 

@@ -17,6 +17,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Products
         Task<int> UpdateProductAsync(UpdatedProductDto model);
         Task<bool> DeleteProductAsync(int id);
         Task<IEnumerable<BrandDto>> GetBrandsAsync();
+        Task<int> CreateBrandAsync(CreatedBrandDto model);
         Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
 
 

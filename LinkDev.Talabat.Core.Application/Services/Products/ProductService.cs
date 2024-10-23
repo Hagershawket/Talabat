@@ -112,8 +112,29 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
 
         #endregion
 
+        #region Brand
+
+        #region Get
+
         public async Task<IEnumerable<BrandDto>> GetBrandsAsync()
             => _mapper.Map<IEnumerable<BrandDto>>(await _unitOfWork.getRepository<ProductBrand, int>().GetAllAsync());
+
+        #endregion
+
+        #region Create
+
+        public async Task<int> CreateBrandAsync(CreatedBrandDto model)
+        {
+            var brand = _mapper.Map<ProductBrand>(model);
+
+            await _unitOfWork.getRepository<ProductBrand, int>().AddAsync(brand);
+
+            return await _unitOfWork.CompleteAsync();
+        }
+
+        #endregion
+
+        #endregion
 
         public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
             => _mapper.Map<IEnumerable<CategoryDto>>(await _unitOfWork.getRepository<ProductCategory, int>().GetAllAsync());

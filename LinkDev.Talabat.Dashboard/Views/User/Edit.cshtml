@@ -13,30 +13,40 @@
     <div class="card mb-4">
         <div class="card-body">
             <form method="post" asp-action="Edit" class="mt-4">
-                <div class="form-group">
-                    <label asp-for="UserName" class="col-form-label"></label>
-                    <input asp-for="UserName" class="form-control" disabled />
+                <div class="mb-4">
+                    <fieldset class="border p-3">
+                        <legend class="w-auto fw-bold">User Details</legend>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="UserName" class="col-form-label fw-bold"></label>
+                            <input asp-for="UserName" class="form-control" disabled />
+                        </div>
+                    </fieldset>
                 </div>
 
-                <hr/>
-                <h3>Manage User Roles</h3>
-                <hr/>
-
-                @for (int i = 0; i < Model.Roles.Count; i++)
-                {
-                    <div>
-                        <input asp-for="@Model.Roles[i].Id" hidden />
-                        <input asp-for="@Model.Roles[i].Name" hidden />
-                        <input asp-for="@Model.Roles[i].IsSelected" class="form-check-input" />
-                        <label asp-for="@Model.Roles[i].Name" class="form-check-label">@Model.Roles[i].Name</label>
-                        <span asp-validation-for="Roles" class="text-danger"></span>
-                    </div>
-                }
-
-                <div class="input-group mt-2 justify-content-center">
-                    <button type="submit" class="btn btn-success m-2">Edit</button>
-                    <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
+                <div class="mb-4">
+                    <fieldset class="border p-3">
+                        <legend class="w-auto fw-bold">Manage User Roles</legend>
+                        <hr />
+                        <div class="form-group">
+                        <label asp-for="Roles" class="col-form-label fw-bold"></label>
+                        @for (int i = 0; i < Model.Roles.Count; i++)
+                        {
+                            <div>
+                                <input asp-for="@Model.Roles[i].Id" hidden />
+                                <input asp-for="@Model.Roles[i].Name" hidden />
+                                <input asp-for="@Model.Roles[i].IsSelected" class="form-check-input" />
+                                <label asp-for="@Model.Roles[i].Name" class="form-check-label">@Model.Roles[i].Name</label>
+                                <span asp-validation-for="Roles" class="text-danger"></span>
+                            </div>
+                        }
+                        </div>
+                    </fieldset>
                 </div>
+
+                <br />
+                <input type="submit" value="Edit" class="btn btn-success" />
+                <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
             </form>
         </div>
     </div>

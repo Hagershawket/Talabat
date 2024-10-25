@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Talabat | @ViewData["Title"]</title>
+    <title>@ViewData["Title"] | Talabat</title>
     <link rel="icon" href="~/talabat-favicon.png" id="fav-icon" type="image/x-icon">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/css/styles.css" rel="stylesheet" />
@@ -27,7 +27,10 @@
                             <li><a class="dropdown-item" href="#!">Settings</a></li>
                             <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="Logout">Logout</a></li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="Admin" asp-action="Logout">
+                                    <i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -12,17 +12,11 @@
 
     <div class="card mb-4">
         <div class="card-body">
-            <form asp-action="Edit" method="post" class="mt-4">
-                <div class="form-group mt-2">
-                    <label asp-for="Name" class="form-control"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="input-group mt-2 justify-content-center">
-                    <button type="submit" class="btn btn-success m-2">Edit</button>
-                    <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
-                </div>
+            <form asp-action="Edit" method="post">
+                <partial name="Partials/RoleFormPartialView" model="Model" />
+                <br />
+                <input type="submit" value="Edit" class="btn btn-success" />
+                <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
             </form>
         </div>
     </div>

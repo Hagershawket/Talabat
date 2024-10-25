@@ -23,6 +23,12 @@ namespace LinkDev.Talabat.Dashboard.Controllers
 
         #region Create
 
+        [HttpGet] // GET: /Role/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost] // POST: /Role/Create
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RoleFormViewModel model)

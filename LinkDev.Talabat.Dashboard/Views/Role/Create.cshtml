@@ -1,20 +1,19 @@
 ﻿@model BrandViewModel
-
 @{
-    ViewData["Title"] = "Create Brand";
+    ViewData["Title"] = "Create Role";
 }
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Brands</h1>
+    <h1 class="mt-4">Roles</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a asp-action="Index">Brands</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Roles</a></li>
         <li class="breadcrumb-item active">Create</li>
     </ol>
 
     <div class="card mb-4">
         <div class="card-body">
-            <form asp-action="Create" method="post" enctype="multipart/form-data">
-                <partial name="Partials/CreateEditPartialView" model="Model" />
+            <form asp-action="Create" method="post">
+                <partial name="Partials/RoleFormPartialView" model="Model" />
                 <br />
                 <input type="submit" value="Create" class="btn btn-success" />
                 <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>

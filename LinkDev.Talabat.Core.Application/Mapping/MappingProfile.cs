@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Core.Application.Mapping
 {
-    internal class MappingProfile : Profile
+    public class MappingProfile : Profile
     {        
         public MappingProfile() 
         {
@@ -22,11 +22,18 @@ namespace LinkDev.Talabat.Core.Application.Mapping
                 .ForMember(D => D.Category, config => config.MapFrom(S => S.Category!.Name))
                 .ForMember(d => d.PictureUrl, opt => opt.MapFrom<ProductPictureUrlResolver>());
 
+            CreateMap<CreatedProductDto, Product>()
+                .ForMember(D => D.NormalizedName, opt => opt.MapFrom(src => src.Name.ToUpper()));
+
+            CreateMap<UpdatedProductDto, Product>()
+                .ForMember(D => D.NormalizedName, opt => opt.MapFrom(src => src.Name.ToUpper()));
+
             #endregion
 
             #region Brand
 
             CreateMap<ProductBrand, BrandDto>();
+            CreateMap<CreatedBrandDto, ProductBrand>();
 
             #endregion
 

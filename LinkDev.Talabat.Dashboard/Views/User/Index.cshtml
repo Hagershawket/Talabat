@@ -1,0 +1,45 @@
+﻿@model IEnumerable<UserViewModel>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Users</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(U => U.Id)</th>
+                        <th>@Html.DisplayNameFor(U => U.UserName)</th>
+                        <th>@Html.DisplayNameFor(U => U.DisplayName)</th>
+                        <th>@Html.DisplayNameFor(U => U.Email)</th>
+                        <th>@Html.DisplayNameFor(U => U.PhoneNumber)</th>
+                        <th>Roles</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.UserName</td>
+                            <td>@user.DisplayName</td>
+                            <td>@user.Email</td>
+                            <td>@user.PhoneNumber</td>
+                            <td>@string.Join(",", user.Roles.ToList())</td>
+                            <td>
+                                <a class="btn text-warning" asp-action="Edit" asp-route-id="@user.Id"><i class="fas fa-pen"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

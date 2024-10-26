@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Products.Models
         public string? Brand { get; set; }
         public int? CategoryId { get; set; }
         public string? Category { get; set; }
+        public string? CreatedOn { get; set; }
+        public string? LastModifiedOn { get; set; }
     }
 }

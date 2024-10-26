@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket;
+using LinkDev.Talabat.Core.Application.Common.Services.Attachments;
 using LinkDev.Talabat.Core.Application.Mapping;
 using LinkDev.Talabat.Core.Application.Services;
 using LinkDev.Talabat.Core.Application.Services.Basket;
@@ -17,6 +18,7 @@ namespace LinkDev.Talabat.Core.Application
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped(typeof(IServiceManager), typeof(ServiceManager));
+            services.AddScoped(typeof(IAttachmentService), typeof(AttachmentService));
 
             // services.AddScoped(typeof(IBasketService), typeof(BasketService));
             // services.AddScoped(typeof(Func<IBasketService>), typeof(Func<BasketService>));

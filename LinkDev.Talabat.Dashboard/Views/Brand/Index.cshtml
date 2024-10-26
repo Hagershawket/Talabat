@@ -1,0 +1,61 @@
+﻿@model IReadOnlyList<BrandViewModel>
+@{
+    ViewData["Title"] = "Brands";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Brands</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Brands</a></li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body d-flex justify-content-end">
+            <a class="btn btn-success" asp-action="Create">Add New Brand</a>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var brand in Model)
+                    {
+                        <tr>
+                            <td>@brand.Id</td>
+                            <td>@brand.Name</td>
+                            <partial name="_ButtonsPartial" model="@brand.Id" />
+                        </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deleteModal-@brand.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="deleteModal-@brand.Id">Delete Brand</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you would like to do this?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form asp-action="Delete" asp-route-id="@brand.Id" method="post">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

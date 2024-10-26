@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LinkDev.Talabat.APIs.Controllers\LinkDev.Talabat.APIs.Controllers.csproj" />
+    <ProjectReference Include="..\LinkDev.Talabat.APIs\LinkDev.Talabat.APIs.csproj" />
+  </ItemGroup>
+
 </Project>

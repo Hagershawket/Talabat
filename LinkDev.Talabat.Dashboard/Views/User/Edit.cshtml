@@ -1,0 +1,57 @@
+﻿@model UpdatedUserViewModel
+@{
+    ViewData["Title"] = "Edit User";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Users</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-action="Index">Users</a></li>
+        <li class="breadcrumb-item active">Edit</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="post" asp-action="Edit" class="mt-4">
+                <div class="mb-4">
+                    <fieldset class="border p-3">
+                        <legend class="w-auto fw-bold">User Details</legend>
+                        <hr />
+                        <div class="form-group">
+                            <label asp-for="UserName" class="col-form-label fw-bold"></label>
+                            <input asp-for="UserName" class="form-control" disabled />
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="mb-4">
+                    <fieldset class="border p-3">
+                        <legend class="w-auto fw-bold">Manage User Roles</legend>
+                        <hr />
+                        <div class="form-group">
+                        <label asp-for="Roles" class="col-form-label fw-bold"></label>
+                        @for (int i = 0; i < Model.Roles.Count; i++)
+                        {
+                            <div>
+                                <input asp-for="@Model.Roles[i].Id" hidden />
+                                <input asp-for="@Model.Roles[i].Name" hidden />
+                                <input asp-for="@Model.Roles[i].IsSelected" class="form-check-input" />
+                                <label asp-for="@Model.Roles[i].Name" class="form-check-label">@Model.Roles[i].Name</label>
+                                <span asp-validation-for="Roles" class="text-danger"></span>
+                            </div>
+                        }
+                        </div>
+                    </fieldset>
+                </div>
+
+                <br />
+                <input type="submit" value="Edit" class="btn btn-success" />
+                <a class="btn btn-secondary m-2" asp-action="Index">Back to Index</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

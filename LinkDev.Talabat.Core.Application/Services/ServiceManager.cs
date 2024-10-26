@@ -10,12 +10,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace LinkDev.Talabat.Core.Application.Services
 {
-    internal class ServiceManager : IServiceManager
+    public class ServiceManager : IServiceManager
     {
         private readonly Lazy<IProductService> _productService;
         private readonly Lazy<IBasketService> _basketService;
         private readonly Lazy<IAuthService> _authService;
 
+        public ServiceManager(IUnitOfWork unitOfWork, IMapper mapper, IAttachmentService attachmentService)
+        {
+            _productService = new Lazy<IProductService>(() => new ProductService(unitOfWork, mapper, attachmentService));
+        }
         public ServiceManager(
             IUnitOfWork unitOfWork,
             IMapper mapper, 

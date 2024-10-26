@@ -21,9 +21,7 @@ namespace LinkDev.Talabat.Dashboard
 
             builder.Services.AddIdentityServices();
             builder.Services.AddDashboardServices();
-            builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
-            builder.Services.AddInfrastructureService(builder.Configuration);
 
             #endregion
 

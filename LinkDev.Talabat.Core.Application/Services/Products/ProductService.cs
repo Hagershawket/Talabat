@@ -78,6 +78,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Products
         public async Task<int> UpdateProductAsync(UpdatedProductDto model)
         {
             var product = _mapper.Map<Product>(model);
+            product.CreatedBy = "Temp";
 
             if (model.Image is not null)
             {

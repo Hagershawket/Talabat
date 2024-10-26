@@ -2,6 +2,8 @@
 using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Services.Auth;
 using LinkDev.Talabat.Core.Application.Common.Services.Attachments;
+using LinkDev.Talabat.Core.Application.Mapping;
+using LinkDev.Talabat.Core.Application.Services;
 using LinkDev.Talabat.Core.Application.Services.Auth;
 using LinkDev.Talabat.Dashboard.Mapping;
 using LinkDev.Talabat.Infrastructure.Persistence._Identity;
@@ -41,6 +43,11 @@ namespace LinkDev.Talabat.Dashboard
 
         public static IServiceCollection AddDashboardServices(this IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddScoped(typeof(IServiceManager), typeof(ServiceManager));
+            services.AddScoped(typeof(IAttachmentService), typeof(AttachmentService));
+
             services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
             services.AddHttpContextAccessor();
             services.AddScoped<BaseAuditableEntityInterceptor>();

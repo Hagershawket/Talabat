@@ -4,6 +4,7 @@ using LinkDev.Talabat.Infrastructure.Persistence._Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkDev.Talabat.Infrastructure.Persistence._Identity.Migrations
 {
     [DbContext(typeof(StoreIdentityDbContext))]
-    partial class StoreIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241025101751_AddAddressFieldsConfigurationsMigration")]
+    partial class AddAddressFieldsConfigurationsMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

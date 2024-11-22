@@ -1,10 +1,6 @@
 ﻿using LinkDev.Talabat.Core.Domain.Entities.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using LinkDev.Talabat.Infrastructure.Persistence._Common;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data
 {
@@ -17,7 +13,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyInformation).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssemblyInformation).Assembly,
+                type => type.GetCustomAttribute<DbContextTypeAttribute>()?.DbContextType == typeof(StoreDbContext));
         }
 
         public DbSet<Product> Products { get; set; }

@@ -2,9 +2,11 @@
 using LinkDev.Talabat.Core.Abstraction;
 using LinkDev.Talabat.Core.Abstraction.Services.Auth;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket;
+using LinkDev.Talabat.Core.Abstraction.Services.Orders;
 using LinkDev.Talabat.Core.Application.Mapping;
 using LinkDev.Talabat.Core.Application.Services;
 using LinkDev.Talabat.Core.Application.Services.Basket;
+using LinkDev.Talabat.Core.Application.Services.Orders;
 using LinkDev.Talabat.Core.Domain.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,13 @@ namespace LinkDev.Talabat.Core.Application
                 //return () => new BasketService(basketRepository, mapper, configuration);
 
                 return () => serviceProvider.GetRequiredService<IBasketService>();
+            });
+
+            services.AddScoped(typeof(IOrderService), typeof(OrderService));
+
+            services.AddScoped(typeof(Func<IOrderService>), (serviceProvider) =>
+            {
+                return () => serviceProvider.GetRequiredService<IOrderService>();
             });
 
             return services;

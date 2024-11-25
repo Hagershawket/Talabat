@@ -12,6 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UserAddress  = LinkDev.Talabat.Core.Domain.Entities.Order.Address;
+using OrderAddress = LinkDev.Talabat.Core.Domain.Entities.Identity.Address;
+
 namespace LinkDev.Talabat.Core.Application.Mapping
 {
     internal class MappingProfile : Profile
@@ -56,9 +59,11 @@ namespace LinkDev.Talabat.Core.Application.Mapping
                 .ForMember(D => D.ProductName, config => config.MapFrom(S => S.Product!.ProductName))
                 .ForMember(D => D.PictureUrl, opt => opt.MapFrom<OrderItemPictureUrlResolver>());
 
-            CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<UserAddress, AddressDto>().ReverseMap();
 
             CreateMap<DeliveryMethod, DeliveryMethodDto>();
+
+            CreateMap<OrderAddress, AddressDto>();
 
             #endregion
         }

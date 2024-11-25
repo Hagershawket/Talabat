@@ -118,15 +118,32 @@ namespace LinkDev.Talabat.Core.Application.Services.Auth
 
         }
 
-        public async Task<AddressDto> GetUserAddressAsync(ClaimsPrincipal claimsPrincipal)
+        public async Task<AddressDto?> GetUserAddressAsync(ClaimsPrincipal claimsPrincipal)
         {
-            var email = claimsPrincipal.FindFirstValue(ClaimTypes.Email);
-
             var user = await userManager.FindUserWithAddress(claimsPrincipal);
 
             var address = mapper.Map<AddressDto>(user!.Address);
 
             return address;
+        }
+
+        public async Task<AddressDto> UpdateUserAddress(ClaimsPrincipal claimsPrincipal, AddressDto addressDto)
+        {
+            var user = await userManager.FindUserWithAddress(claimsPrincipal);
+
+            var address = mapper.Map<Address>(addressDto);
+
+            if(user?.Address is not null)
+                address.Id = user.Address.Id;
+
+            user!.Address = address;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.Select(error => error.Description).Aggregate((X, Y) => $"{X}, {Y}"));
+
+            return addressDto;
+
         }
     }
 }

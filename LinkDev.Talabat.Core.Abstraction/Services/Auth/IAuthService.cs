@@ -9,6 +9,7 @@ namespace LinkDev.Talabat.Core.Abstraction.Services.Auth
         Task<UserDto> LoginAsync(LoginDto model);
         Task<UserDto> RegisterAsync(RegisterDto model);
         Task<UserDto> GetCurrentUserAsync(ClaimsPrincipal claimsPrincipal);
-        Task<AddressDto> GetUserAddressAsync(ClaimsPrincipal claimsPrincipal);
+        Task<AddressDto?> GetUserAddressAsync(ClaimsPrincipal claimsPrincipal);
+        Task<AddressDto> UpdateUserAddress(ClaimsPrincipal claimsPrincipal, AddressDto model);
     }
 }

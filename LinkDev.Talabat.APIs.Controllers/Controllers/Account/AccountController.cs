@@ -4,6 +4,7 @@ using LinkDev.Talabat.Core.Abstraction.Models.Common;
 using LinkDev.Talabat.Core.Abstraction.Services.Auth.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
 {
@@ -44,6 +45,13 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
         public async Task<ActionResult<AddressDto>> UpdateAddressUser(AddressDto address)
         {
             var response = await serviceManager.AuthService.UpdateUserAddress(User, address);
+            return Ok(response);
+        }
+
+        [HttpGet("emailexists")] // PUT: /api/account/emailexists?email=
+        public async Task<ActionResult<bool>> CheckEmailExist(string email)
+        {
+            var response = await serviceManager.AuthService.CheckEmailExistsAsync(email);
             return Ok(response);
         }
     }

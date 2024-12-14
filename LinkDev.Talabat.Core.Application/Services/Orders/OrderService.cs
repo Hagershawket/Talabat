@@ -22,7 +22,7 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             var orderItems = new List<OrderItem>();
 
-            if (basket.Items.Count() > 0)
+            if (basket.Items.Count > 0)
             {
                 var productRepo = unitOfWork.getRepository<Product, int>();
                 foreach (var item in basket.Items)

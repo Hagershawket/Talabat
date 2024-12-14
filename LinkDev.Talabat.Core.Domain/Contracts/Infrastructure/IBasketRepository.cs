@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Domain.Infrastructure
+namespace LinkDev.Talabat.Core.Domain.Contracts.Infrastructure
 {
     public interface IBasketRepository
     {

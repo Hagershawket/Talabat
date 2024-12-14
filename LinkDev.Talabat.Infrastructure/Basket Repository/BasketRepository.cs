@@ -1,5 +1,5 @@
-﻿using LinkDev.Talabat.Core.Domain.Entities.Basket;
-using LinkDev.Talabat.Core.Domain.Infrastructure;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using StackExchange.Redis;
 using System.Text.Json;
 

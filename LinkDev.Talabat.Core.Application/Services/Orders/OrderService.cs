@@ -3,6 +3,7 @@ using LinkDev.Talabat.Core.Abstraction.Models.Orders;
 using LinkDev.Talabat.Core.Abstraction.Services.Basket;
 using LinkDev.Talabat.Core.Abstraction.Services.Orders;
 using LinkDev.Talabat.Core.Application.Exceptions;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Order;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
@@ -10,7 +11,7 @@ using LinkDev.Talabat.Core.Domain.Specifications.Orders;
 
 namespace LinkDev.Talabat.Core.Application.Services.Orders
 {
-    internal class OrderService(IMapper mapper, IUnitOfWork unitOfWork, IBasketService basketService) : IOrderService
+    internal class OrderService(IMapper mapper, IUnitOfWork unitOfWork, IBasketService basketService, IPaymentService paymentService) : IOrderService
     {
         public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, OrderToCreateDto order)
         {
@@ -63,6 +64,15 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
 
             // 6. Create Order
 
+            var orderRepo  = unitOfWork.getRepository<Order, int>();
+            var orderSpecs = OrderSpecifications.ForPaymentIntentId(basket.PaymentIntentId!);
+            var existingOrder = await orderRepo.GetWithSpecAsync(orderSpecs);
+            if (existingOrder is not null)
+            {
+                orderRepo.Delete(existingOrder);
+                await paymentService.CreateOrUpdatePaymentIntent(basket.Id);
+            }
+
             var orderToCreate = new Order()
             {
                 BuyerEmail = buyerEmail,
@@ -70,9 +80,10 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                 Items = orderItems,
                 SubTotal = subTotal,
                 DeliveryMethod = deliveryMethod,
+                PaymentIntentId = basket.PaymentIntentId!,
             };
 
-            await unitOfWork.getRepository<Order, int>().AddAsync(orderToCreate);
+            await orderRepo.AddAsync(orderToCreate);
 
             // 7. Save To Database
 

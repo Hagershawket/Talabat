@@ -1,9 +1,12 @@
 ﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence.DbInitializers;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence._Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Data;
+using LinkDev.Talabat.Infrastructure.Persistence.Data.Interceptors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence
 {
@@ -13,13 +16,16 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
         {
             #region Store DbContext
 
-            services.AddDbContext<StoreDbContext>((optionBuilder) =>
-                {
-                    optionBuilder.UseLazyLoadingProxies()
+            services.AddDbContext<StoreDbContext>((serviceProvider, optionBuilder) =>
+            {
+            optionBuilder.UseLazyLoadingProxies()
+                                 .AddInterceptors(serviceProvider.GetRequiredService<BaseAuditableEntityInterceptor>())
                                  .UseSqlServer(configuration.GetConnectionString("StoreContext"));
                 }/*, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Scoped*/);
 
             services.AddScoped<IStoreDbInitializer, StoreDbInitializer>();
+
+            services.AddScoped(typeof(BaseAuditableEntityInterceptor));
 
             // services.AddScoped(typeof(ISaveChangesInterceptor), typeof(BaseAuditableEntityInterceptor));
 

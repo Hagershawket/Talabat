@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LinkDev.Talabat.Shared\LinkDev.Talabat.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,7 +7,7 @@ using LinkDev.Talabat.Core.Application.Mapping;
 using LinkDev.Talabat.Core.Application.Services;
 using LinkDev.Talabat.Core.Application.Services.Basket;
 using LinkDev.Talabat.Core.Application.Services.Orders;
-using LinkDev.Talabat.Core.Domain.Infrastructure;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Abstraction.Models.Common;
 using LinkDev.Talabat.Core.Abstraction.Models.Orders;
-using LinkDev.Talabat.Core.Abstraction.Services.Basket.Models;
 using LinkDev.Talabat.Core.Abstraction.Services.Products.Models;
 using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using LinkDev.Talabat.Core.Domain.Entities.Order;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 
 using UserAddress  = LinkDev.Talabat.Core.Domain.Entities.Order.Address;
 using OrderAddress = LinkDev.Talabat.Core.Domain.Entities.Identity.Address;
+using LinkDev.Talabat.Shared.Models;
 
 namespace LinkDev.Talabat.Core.Application.Mapping
 {

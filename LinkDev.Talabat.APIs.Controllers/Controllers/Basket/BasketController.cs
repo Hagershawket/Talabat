@@ -1,6 +1,6 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Controllers.Base;
 using LinkDev.Talabat.Core.Abstraction;
-using LinkDev.Talabat.Core.Abstraction.Services.Basket.Models;
+using LinkDev.Talabat.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Basket

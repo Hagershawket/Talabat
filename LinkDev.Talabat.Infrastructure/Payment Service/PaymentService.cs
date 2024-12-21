@@ -1,6 +1,6 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
+﻿using AutoMapper;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
-using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using LinkDev.Talabat.Core.Domain.Entities.Order;
 using LinkDev.Talabat.Shared.Models;
 using Microsoft.Extensions.Options;
@@ -9,11 +9,11 @@ using Product = LinkDev.Talabat.Core.Domain.Entities.Products.Product;
 
 namespace LinkDev.Talabat.Infrastructure.Payment_Service
 {
-    internal class PaymentService(IBasketRepository basketRepository, IUnitOfWork unitOfWork, IOptions<RedisSettings> redisSettings) : IPaymentService
+    internal class PaymentService(IBasketRepository basketRepository, IUnitOfWork unitOfWork, IMapper mapper, IOptions<RedisSettings> redisSettings) : IPaymentService
     {
         private readonly RedisSettings _redisSettings = redisSettings.Value;
 
-        public async Task<CustomerBasket?> CreateOrUpdatePaymentIntent(string basketId)
+        public async Task<CustomerBasketDto?> CreateOrUpdatePaymentIntent(string basketId)
         {
             var basket = await basketRepository.GetAsync(basketId);
 
@@ -66,7 +66,7 @@ namespace LinkDev.Talabat.Infrastructure.Payment_Service
 
             await basketRepository.UpdateAsync(basket, TimeSpan.FromDays(_redisSettings.TimeToLiveInDays));
 
-            return basket;
+            return mapper.Map<CustomerBasketDto>(basket);
         }
     }
 }

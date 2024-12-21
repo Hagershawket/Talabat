@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Abstraction.Services.Basket.Models;
+﻿using LinkDev.Talabat.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
